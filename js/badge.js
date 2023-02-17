@@ -1,0 +1,11 @@
+const el = document.createElement("a");
+el.id = "powered-by-znci";
+el.style.position = "fixed";
+el.style.bottom = "20px";
+el.style.left = "20px";
+el.href = "https://znci.dev";
+el.target = "_blank";
+const img = document.createElement("img");
+img.src = "http://res.cloudinary.com/znci/image/upload/v1676557115/rhwmhtm0urlmvnlqm4rc.svg";
+el.appendChild(img);
+document.body.appendChild(el);

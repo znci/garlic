@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+html {
+	--deg: 25deg;
+	--text: hsl(var(--deg), 100%, 100%);
+
+	--bg-a1: hsl(var(--deg), 10%, 5%);
+	--bg-a2: hsl(var(--deg), 10%, 7%);
+	--bg-a3: hsl(var(--deg), 10%, 9%);
+	--bg-a4: hsl(var(--deg), 10%, 11%);
+	--bg-a5: hsl(var(--deg), 10%, 13%);
+	--bg-a6: hsl(var(--deg), 10%, 15%);
+	--bg-a8: hsl(var(--deg), 10%, 19%);
+	--bg-a9: hsl(var(--deg), 10%, 21%);
+
+	--bg-d1: hsl(var(--deg), 40%, 5%);
+	--bg-d2: hsl(var(--deg), 40%, 7%);
+	--bg-d3: hsl(var(--deg), 40%, 9%);
+	--bg-d4: hsl(var(--deg), 40%, 11%);
+	--bg-d5: hsl(var(--deg), 40%, 13%);
+	--bg-d6: hsl(var(--deg), 40%, 15%);
+	--bg-d7: hsl(var(--deg), 40%, 17%);
+	--bg-d8: hsl(var(--deg), 40%, 19%);
+	--bg-d9: hsl(var(--deg), 40%, 21%);
+
+	--bg-i1: hsl(var(--deg), 90%, 35%);
+	--bg-i2: hsl(var(--deg), 90%, 37%);
+	--bg-i3: hsl(var(--deg), 90%, 39%);
+	--bg-i4: hsl(var(--deg), 90%, 41%);
+	--bg-i5: hsl(var(--deg), 90%, 43%);
+	--bg-i6: hsl(var(--deg), 90%, 45%);
+	--bg-i7: hsl(var(--deg), 90%, 47%);
+	--bg-i8: hsl(var(--deg), 90%, 49%);
+	--bg-i9: hsl(var(--deg), 90%, 51%);
+
+	--bg-j1: hsl(var(--deg), 100%, 55%);
+	--bg-j2: hsl(var(--deg), 100%, 57%);
+	--bg-j3: hsl(var(--deg), 100%, 59%);
+	--bg-j4: hsl(var(--deg), 100%, 61%);
+	--bg-j5: hsl(var(--deg), 100%, 63%);
+	--bg-j6: hsl(var(--deg), 100%, 65%);
+	--bg-j7: hsl(var(--deg), 100%, 67%);
+	--bg-j8: hsl(var(--deg), 100%, 69%);
+	--bg-j9: hsl(var(--deg), 100%, 71%);
+
+	--bg-primary: hsl(216, 98%, 52%);
+	--bg-primary-hover: hsl(216, 98%, 40%);
+	--bg-error: hsl(354, 70%, 54%);
+	--bg-error-hover: hsl(354, 70%, 45%);
+	--bg-warning: hsl(45, 100%, 51%);
+	--bg-warning-hover: hsl(45, 100%, 41%);
+	--bg-success: hsl(152, 69%, 31%);
+	--bg-success-hover: hsl(152, 69%, 21%);
+
+	--font: Inter;
+	--font-size: 16px;
+}
+* {
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
+	box-sizing: border-box;
+}
+html, body {
+	background-color: var(--bg-a1);
+	color: var(--text);
+	font-family: var(--font);
+	font-size: var(--font-size);
+	overflow-x: hidden;
+	height: 100%;
+}
+a.button {
+	background-color: var(--bg-primary);
+	border: 1px solid var(--bg-primary-hover);
+	padding: 0.5rem 1rem;
+	margin: 10px;
+	border-radius: 7px;
+	color: #fff;
+	text-decoration: none;
+	transition: 0.1s linear all;
+}
+a.button:hover {
+	background-color: var(--bg-primary-hover);
+	border: 1px solid var(--bg-primary);
+}
+a.button.button-primary {
+	background-color: var(--bg-primary);
+	border: 1px solid var(--bg-primary-hover);
+}
+a.button.button-primary:hover {
+	background-color: var(--bg-primary-hover);
+	border: 1px solid var(--bg-primary);
+}
+
+a.button.button-error {
+	background-color: var(--bg-error);
+	border: 1px solid var(--bg-error-hover);
+}
+a.button.button-error:hover {
+	background-color: var(--bg-error-hover);
+	border: 1px solid var(--bg-error);
+}
+
+a.button.button-warning {
+	background-color: var(--bg-warning);
+	border: 1px solid var(--bg-warning-hover);
+}
+a.button.button-warning:hover {
+	background-color: var(--bg-warning-hover);
+	border: 1px solid var(--bg-warning);
+}
+
+a.button.button-success {
+	background-color: var(--bg-success);
+	border: 1px solid var(--bg-success-hover);
+}
+a.button.button-success:hover {
+	background-color: var(--bg-success-hover);
+	border: 1px solid var(--bg-success);
+}
+
+.navbar {
+	display: flex;
+	height: 50px;
+	background-color: var(--bg-a5);
+	align-items: center;
+	padding: 10px;
+}
+.navbar .title img {
+	height: 40px;
+}
+.navbar .items {
+	margin-left: 50px;
+	display: flex;
+}
+.navbar .items-right {
+	margin-left: auto;
+}
+.navbar .items .item {
+	display: flex;
+	align-items: center;
+	min-width: 50px;
+	justify-content: center;
+	padding: 5px;
+	min-height: 50px;
+	transition: 0.1s linear background;
+}
+.navbar .items .item:hover {
+	background-color: var(--bg-a8);
+}
+.navbar .items .item.selected {
+	background-color: var(--bg-i7);
+}
+.navbar .items .item.selected:hover {
+	background-color: var(--bg-j2);
+}
+.centre-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+}
+.centre-content .title {
+	display: grid;
+	justify-items: center;
+}
+.centre-content .content .description {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.centre-content .content .footer {
+	height: 50px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+canvas {
+	border: 2px solid var(--bg-j1);
+	display: block;
+	margin: 0 auto;
+	margin-top: 10px;
+}
