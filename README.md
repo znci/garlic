@@ -10,4 +10,5 @@ All current features of garlic are:
  - Custom cursors for the canvas (max resolution 128x128) - width and height is automatically detected to make sure that most browsers can read them.
  - Input Handling
  - Built-in FPS handler
+ - Keybind Cooldowns
 

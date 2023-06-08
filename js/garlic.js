@@ -1,4 +1,22 @@
 
+/*
+	Keybind Cooldown
+*/
+var keyState = {};    
+window.addEventListener('keydown', (e) => {
+  keyState[e.key] = true;
+},true);    
+window.addEventListener('keyup', (e) => {
+  keyState[e.key] = false;
+},true);
+
+/*
+	Variables
+*/
+
+var	entities = [];
+var controlling = null;
+
 class garlic {
 	constructor(canvWidth, canvHeight) {
 		// Canvas Setup
@@ -6,12 +24,11 @@ class garlic {
 		this.canvasWidth = canvWidth;
 		this.canvasHeight = canvHeight;
 		this.canvasID = "garlic-canvas";
-		this.framerate = 30;
 		this.currentFramerate = 0;
 
 		this.canvas = new garlic.canvas(this);
 		this.utils = new garlic.utils(this);
-		this.player = new garlic.player(this);
+		this.entity = new garlic.entity(this);
 	}
 }
 
@@ -111,6 +128,13 @@ garlic.canvas = class {
 			draggedY: 0,
 		};
 
+		this.updateMouse = (e) => {
+			console.log(e);
+			this.mouse.x = e.clientX;
+			this.mouse.y = e.clientY;
+			this.mouse.pressed = e.buttons;
+		}
+
 
 		this.cursor = (img) => {
 			const image = self.utils.imageRes(img);
@@ -138,7 +162,7 @@ garlic.canvas = class {
 		}
 
 		this.render = (func) => {
-			const fr = 1000 / game.framerate;
+			const fr = 1000 / self.currentFramerate;
 			setInterval(func, fr);
 			this.fps();
 		}
@@ -149,19 +173,52 @@ garlic.canvas = class {
 	}
 }
 
-garlic.player = class {
+garlic.entity = class {
 	constructor(self) {
 		this.x = 0;
 		this.y = 0;
 		this.width = 32;
 		this.height = 32;
-		this.speed = 5;
+		this.speed = 0.2;
 		this.sprite = null;
-		
+		this.uuid = Math.random().toString(36).substring(2);
+
+		entities.push(this);
+
 		this.draw = () => {
 			if(!this.sprite) {
 				self.canvas.drawRect(this.x, this.y, this.width, this.height, "#fff");
 			}
 		}
+
+		this.destroy = () => {
+			entities.splice(entities.indexOf(this), 1);
+		}
+
+		this.move = (x, y) => {
+			this.x = x;
+			this.y = y;
+		}
+
+		this.moveRelative = (x, y) => {
+			this.x += x;
+			this.y += y;
+		}
+
+		this.moveTowards = (x, y) => {
+			if(this.x < x) {
+				this.x += this.speed;
+			}
+			if(this.x > x) {
+				this.x -= this.speed;
+			}
+			if(this.y < y) {
+				this.y += this.speed;
+			}
+			if(this.y > y) {
+				this.y -= this.speed;
+			}
+		}
+
 	}
 }
