@@ -7,7 +7,7 @@ window.addEventListener('keydown', (e) => {
   keyState[e.key] = true;
 },true);    
 window.addEventListener('keyup', (e) => {
-  keyState[e.key] = false;
+  delete keyState[e.key];
 },true);
 
 /*
@@ -117,7 +117,10 @@ garlic.canvas = class {
 		this.mouse = {
 			x: 0,
 			y: 0,
+			originX: 0,
+			originY: 0,
 			pressed: false,
+			buttons: 0,
 			pressedX: 0,
 			pressedY: 0,
 			released: false,
@@ -129,10 +132,31 @@ garlic.canvas = class {
 		};
 
 		this.updateMouse = (e) => {
-			console.log(e);
-			this.mouse.x = e.clientX;
-			this.mouse.y = e.clientY;
-			this.mouse.pressed = e.buttons;
+			this.mouse.x = e.layerX;
+			this.mouse.y = e.layerY;
+			this.mouse.buttons = e.buttons;
+			
+			switch (e.buttons) {
+				case 1:
+					console.log(e);
+					this.mouse.pressed = true;
+					this.mouse.pressedX = e.layerX;
+					this.mouse.pressedY = e.layerY;
+
+					if(e.timestamp)
+					this.mouse.originX = e.layerX;
+					this.mouse.originY = e.layerY;
+
+					this.mouse.draggedX = e.movementX;
+					this.mouse.draggedY = e.movementY;
+					break;
+				case 0:
+					this.mouse.pressed = false;
+					this.mouse.released = true;
+					this.mouse.releasedX = e.layerX;
+					this.mouse.releasedY = e.layerY;
+					break;
+			}
 		}
 
 
@@ -150,20 +174,34 @@ garlic.canvas = class {
 			let before = Date.now();
 			let fps = 0;
 			
-			requestAnimationFrame(
-				function loop() {
-					let now = Date.now();
-					fps = Math.round(1000 / (now - before));
-					before = now;
-					self.currentFramerate = fps;
-					requestAnimationFrame(loop)
-				}
-			)
+			function loop() {
+				let now = Date.now();
+				fps = Math.round(1000 / (now - before));
+				before = now;
+				requestAnimationFrame(loop)
+			}
+			loop();
+
+			setInterval(() => {
+				self.currentFramerate = fps;
+			}, 500);
 		}
 
 		this.render = (func) => {
 			const fr = 1000 / self.currentFramerate;
-			setInterval(func, fr);
+			
+			document.querySelector(`#${self.canvasID}`).addEventListener("mousemove", (e) => {
+				self.canvas.updateMouse(e);
+			})
+
+			requestAnimationFrame(
+				function loop() {
+					func();
+					setTimeout(() => {
+						requestAnimationFrame(loop)
+					}, fr)
+				}
+			);
 			this.fps();
 		}
 
